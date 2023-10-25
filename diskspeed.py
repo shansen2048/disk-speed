@@ -21,8 +21,8 @@ def writetofile(filename,mysizeMB):
 def diskspeedmeasure(dirname):
 	# returns writing speed to dirname in MB/s
 	# method: keep writing a file, until 0.5 seconds is passed. Then divide bytes written by time passed
-	filesize = 1	# in MB
-	maxtime = 0.5 	# in sec
+	filesize = 2048	# in MB
+	maxtime = 5 	# in sec
 	filename = os.path.join(dirname,'outputTESTING.txt')
 	start = time.time()
 	loopcounter = 0
@@ -42,29 +42,29 @@ def diskspeedmeasure(dirname):
 
 if __name__ == "__main__":
 
-	print "Let's go"
+	print ("Let's go")
 
 	if len(sys.argv) >= 2:
 		dirname = sys.argv[1]
 		if not os.path.isdir(dirname): 
-			print "Specified argument is not a directory. Bailing out"
+			print ("Specified argument is not a directory. Bailing out")
 			sys.exit(1)
 	else:
 		# no argument, so use current working directory
 		dirname = os.getcwd()
-		print "Using current working directory"
+		print ("Using current working directory")
 
 	try:
 		speed = diskspeedmeasure(dirname)
 		print("Disk writing speed: %.2f Mbytes per second" % speed)
-	except IOError, e:
+	except IOError as e:
 		#print "IOError:", e
 		if e.errno == 13:
-			print "Could not create test file. Check that you have write rights to directory", dirname
+			print ("Could not create test file. Check that you have write rights to directory", dirname)
 	except:
-		print "Something else went wrong"
+		print ("Something else went wrong")
 		raise
 
-	print "Done"
+	print ("Done")
 
 
